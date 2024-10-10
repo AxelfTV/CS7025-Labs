@@ -13,7 +13,7 @@ function main(){
 
     setInterval(tick, 100);
 }
-//isjfbgasfng
+
 function tick(){
     let d = new Date();
     /*body.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
