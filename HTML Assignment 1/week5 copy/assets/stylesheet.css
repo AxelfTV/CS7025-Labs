@@ -1,23 +1,48 @@
-#Header{
-    width:100%;
-    height: 80px;
-    background-color: red;
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
 }
-#NamePlate{
-    float:left;
-    margin: 0;
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+#name_plate a{
+    text-decoration: none;
+    color: white;
+    
 }
-.HLink{
-    float:right;
-    padding-right:10%;
-    margin: 0;
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+#nav_list{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+#nav_list li{
+    display: inline;
+}
+#nav_list li a:hover{
+    display: inline;
+    color: #ddd;
+}
+#nav_list li a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+#home_grid_wrapper{
+    display: grid;
+    background-color: darkcyan;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, minmax(100px, auto));
+
+    width: 95%;
+    height: fit-content;
+    margin: auto;
+}
+.grid_image{
+    grid-column: span 1;
+}
+.grid_content{
+    grid-column: span 2;
 }
