@@ -32,17 +32,30 @@ header{
 }
 #home_grid_wrapper{
     display: grid;
-    background-color: darkcyan;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(3, minmax(100px, auto));
+    grid-template-rows: repeat(3, minmax(300px, auto));
 
     width: 95%;
+    row-gap: 30px;
     height: fit-content;
     margin: auto;
+    margin-top: 30px;
 }
 .grid_image{
+    background-color: orange;
     grid-column: span 1;
 }
 .grid_content{
+    background-color: darkcyan;
     grid-column: span 2;
+}
+#portfolio_grid{
+    display: grid;
+    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(552px, 1fr));
+    gap: 40px 0;
+    margin: auto;
+    margin-top: 40px;
+    
 }
