@@ -1,6 +1,10 @@
 body{
     background-color: lightgray;
 }
+em{
+  text-decoration: none;
+  color: black;
+}
 /*Header CSS*/
 #page_header{
     display: flex;
@@ -56,11 +60,17 @@ body{
     display: block;
     margin-left: auto;
     margin-right: auto;
+
+    border-radius: 25px;
 }
 .grid_content{
     background-color: gray;
     grid-column: span 2;
     padding-left: 10px;
+}
+.grid_content h3{
+  margin-top: 0;
+  padding-top: 2%;
 }
 .grid_content a{
     display: block;
@@ -68,6 +78,8 @@ body{
     width: 100%;
     text-decoration: none;
     color: black;
+    position:relative;
+  
 }
 /*Portfolio CSS*/
 #portfolio_grid{
