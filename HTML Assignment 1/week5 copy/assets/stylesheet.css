@@ -1,6 +1,10 @@
 body{
     background-color: lightgray;
 }
+.page_title{
+  font-size: 4em;
+  text-align: center;
+}
 /*Header CSS*/
 #page_header{
     display: flex;
@@ -145,4 +149,23 @@ body{
     margin: 5px 0;
     padding: 8px;
     border-radius: 4px;
+  }
+  /*University Projects CSS*/
+  .uni_project{
+    margin: 10%;
+    padding: 5%;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    border-radius: 25px;
+    font-size: 1.5em;
+
+    background-color: white;
+  }
+  .uni_project a{
+    background-color: darkgray;
+  }
+  .uni_project img{
+    float: right;
+    padding: 40px;
   }
