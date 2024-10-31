@@ -1,0 +1,12 @@
+#screen{
+    height: 400px;
+    width: 400px;
+    background-color: antiquewhite;
+    position: relative;
+}
+.entity{
+    position: absolute;
+}
+.entity img{
+    height: 100%
+}
