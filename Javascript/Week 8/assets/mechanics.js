@@ -1,24 +1,19 @@
 function start(){
-    for(i = 0; i < 5; i++){
-        let e = new Test(Math.floor(Math.random() * 100), "assets/sprites/placeholder.png", "test" + i, 200, 200, Math.floor(Math.random() * 30));
-        entities.push(e);
-    }
-
+    let e = new Test(100, "assets/sprites/animation/PlayerWalkDown.png", "test", 200, 200, 10);
+    e.setIdle(jsonData.playerWalk);
+    entities.push(e);
+    
     document.getElementById("button").onclick = onClick;
-
 }
 function update(){
 
 }
-function onClick(){
-    let e = new Test(Math.floor(Math.random() * 100), "assets/sprites/placeholder.png", "test" + i, 200, 200, Math.floor(Math.random() * 30));
-    entities.push(e);
-    i++;
-    console.log("added guy");
+function addFileToLoad(){
+    fileToLoad = 'assets/data.json'
 }
-
-let i = 0;
-
+function onClick(){  
+    entities[0].pushAnim(jsonData.playerDodge);
+}
 class Test extends Entity{
     moveSpd;
     constructor(height, imageUrl, id, x, y, moveSpd){

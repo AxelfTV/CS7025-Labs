@@ -1,5 +1,20 @@
-$(document).ready(main);
-//Code to be executed when the page is loaded
+$(document).ready(loadData);
+let filesToLoad;
+let jsonData;
+//Code to be executed when page is loaded
+function loadData(){
+    const event = new Event("build");
+    addFileToLoad();
+    
+    fetch(fileToLoad)
+    .then((response) => response.json())
+    .then((json) => {
+        console.log("success");
+        jsonData = json;
+        main()
+    });
+}
+//Code to be executed when json data is loaded
 function main(){
     start();   
     updateLoop();
@@ -13,23 +28,27 @@ function updateLoop(){
 
     setTimeout(updateLoop, 100);
 }
+//Entities updated after update function
 function entityUpdate(){
     for(e in entities){
         entities[e].update();
+        entities[e].animate();
     } 
 }
 class Entity{
     positionX;
     positionY;
     height;
-    imageUrl;
+    idleAnim;
     id;
+    animQueue;
     constructor(height, imageUrl, id, x, y){
         this.positionX = x;
         this.positionY = y;
         this.height = height;
-        this.imageUrl = imageUrl;
+        this.idleAnim = [imageUrl];
         this.id = id;
+        this.animQueue = [];
         let screen = $("#screen");
         let entity = document.createElement("div");
         entity.classList.add("entity");
@@ -42,7 +61,6 @@ class Entity{
         entity.append(sprite);
         screen.append(entity);
     }
-    update(){}
     movePosition(x,y){
         this.positionX += x;
         this.positionY += y;
@@ -68,5 +86,25 @@ class Entity{
     }
     getElement(){
         return document.getElementById(this.id);
-    }   
+    }
+    animate(){
+        if(this.animQueue.length == 0){
+            for(let s in this.idleAnim){
+                this.animQueue.push(this.idleAnim[s])
+            }
+        }
+        let img = this.getElement().getElementsByTagName("img")[0];
+        let sprite = this.animQueue.shift();
+        if(img.src != sprite){
+            img.src = sprite;
+        }
+    }
+    setIdle(idleArray){
+        this.idleAnim = idleArray;
+    }
+    pushAnim(animArray){
+        for(let s in animArray){
+            this.animQueue.push(animArray[s]);
+        }
+    }  
 };
