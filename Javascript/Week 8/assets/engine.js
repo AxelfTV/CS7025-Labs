@@ -30,7 +30,7 @@ function updateLoop(){
 }
 //Entities updated after update function
 function entityUpdate(){
-    for(e in entities){
+    for(let e in entities){
         entities[e].update();
         entities[e].animate();
     } 
