@@ -15,7 +15,7 @@ class Test extends Entity{
         this.moveSpd = moveSpd;
     }
     update(){
-        this.moveRandomly();
+        
     }
     moveRandomly(){
         let moveX = Math.round(Math.random() * 2 - 1) * this.moveSpd;
@@ -24,5 +24,17 @@ class Test extends Entity{
     }
     handleBInput(){
         this.pushAnim(jsonData.playerDodge);
+    }
+    handleLeftInput(){
+        this.movePosition(-10,0);
+    }
+    handleRightInput(){
+        this.movePosition(10,0);
+    }
+    handleUpInput(){
+        this.movePosition(0,-10);
+    }
+    handleDownInput(){
+        this.movePosition(0,10);
     }
 }

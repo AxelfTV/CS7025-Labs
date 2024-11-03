@@ -103,7 +103,7 @@ function entityUpdate(){
     for(let e in entities){
         entities[e].update();
         entities[e].animate();
-    } 
+    }
 }
 class Entity{
     positionX;
