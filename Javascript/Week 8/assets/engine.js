@@ -1,6 +1,7 @@
 $(document).ready(loadData);
 let filesToLoad;
 let jsonData;
+let entities = [];
 let lastInput = "";
 //Code to be executed when page is loaded
 function loadData(){
@@ -26,7 +27,6 @@ function main(){
     start();   
     updateLoop();
 }
-let entities = [];
 //Code to be executed every Xms
 function updateLoop(){
     handleInput();
