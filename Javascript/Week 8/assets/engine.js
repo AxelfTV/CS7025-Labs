@@ -33,6 +33,7 @@ function updateLoop(){
 
     update();
     entityUpdate();
+    handleEntityDestroy()
 
     setTimeout(updateLoop, 100);
 }
@@ -105,6 +106,11 @@ function entityUpdate(){
         entities[e].animate();
     }
 }
+function handleEntityDestroy(){
+    for(let e in entities){
+        entities[e].handleDestroy()
+    }
+}
 class Entity{
     positionX;
     positionY;
@@ -112,6 +118,7 @@ class Entity{
     idleAnim;
     id;
     animQueue;
+    toDestroy = false;
     constructor(height, imageUrl, id, x, y){
         this.positionX = x;
         this.positionY = y;
@@ -195,7 +202,18 @@ class Entity{
         for(let s in animArray){
             this.animQueue.push(animArray[s]);
         }
-    }  
+    } 
+    destroy(){
+        this.toDestroy = true;
+    }
+    handleDestroy(){
+        if(this.toDestroy){
+            let f = (e) => e == this;
+            let i = entities.findIndex(f);
+            entities.splice(i,1);
+            this.getElement().remove();
+        } 
+    }
     handleAInput(){}
     handleBInput(){}
     handleLeftInput(){}
