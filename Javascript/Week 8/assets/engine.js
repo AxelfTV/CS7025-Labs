@@ -106,9 +106,10 @@ function entityUpdate(){
         entities[e].animate();
     }
 }
+//Entity destruction occurs last
 function handleEntityDestroy(){
-    for(let e in entities){
-        entities[e].handleDestroy()
+    for(let i = entities.length - 1; i >= 0; i--){
+        entities[i].handleDestroy()
     }
 }
 class Entity{
