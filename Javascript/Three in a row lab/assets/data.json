@@ -1,0 +1,18 @@
+{
+    "playerWalk":[
+        "assets/sprites/animation/PlayerWalkDown.png",
+        "assets/sprites/animation/PlayerWalkDown1.png",
+        "assets/sprites/animation/PlayerWalkDown2.png",
+        "assets/sprites/animation/PlayerWalkDown3.png",
+        "assets/sprites/animation/PlayerWalkDown4.png"
+    ],
+    "playerDodge":[
+        "assets/sprites/animation/Dodge.png",
+        "assets/sprites/animation/Dodge1.png",
+        "assets/sprites/animation/Dodge2.png",
+        "assets/sprites/animation/Dodge3.png",
+        "assets/sprites/animation/Dodge4.png",
+        "assets/sprites/animation/Dodge5.png",
+        "assets/sprites/animation/Dodge6.png"
+    ]
+}
