@@ -25,6 +25,57 @@ function resetGame(){
     playerTurn = 1;
     start();
 }
+//Checks each possible win, could be optimised
+function checkWin(){
+    
+    for(let y = 0; y <3; y++){
+        let check = gridTable[0][y].value;
+        for(let x = 0; x <3; x++){
+            let next = gridTable[x][y].value;
+            if(next != check || next == ""){
+                break;
+            }
+            if(x == 2 && check == next){
+                return next;
+            }
+        }
+    }
+    for(let y = 0; y <3; y++){
+        let check = gridTable[y][0].value;
+        for(let x = 0; x <3; x++){
+            let next = gridTable[y][x].value;
+            if(next != check || next == ""){
+                break;
+            }
+            if(x == 2 && check == next){
+                return next;
+            }
+        }
+    }
+    let check = gridTable[0][0].value;
+    for(let i = 0; i < 3; i++){
+        let next = gridTable[i][i].value;
+        if(next != check || next == ""){
+            break;
+        }
+        if(i == 2 && check == next){
+            return next;
+        }
+    }
+    check = gridTable[2][0].value;
+    for(let i = 0; i < 3; i++){
+        let next = gridTable[2-i][i].value;
+        if(next != check || next == ""){
+            break;
+        }
+        if(i == 2 && check == next){
+            return next;
+        }
+    }
+
+
+    return "";
+}
 class gridSpace extends Entity{
     value = "";
     constructor(height, imageUrl, id, x, y){
@@ -76,6 +127,11 @@ class selector extends Entity{
     }
     handleAInput(){
         gridTable[this.gridPosition[1]][this.gridPosition[0]].tryPlaceObject();
+        let check = checkWin();
+        if(check != ""){
+            console.log(`${check} Won`)
+            resetGame();
+        }
     }
     handleBInput(){
         resetGame();
