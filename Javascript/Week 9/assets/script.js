@@ -28,7 +28,7 @@ function getCookie(cookieKey) {
     for(let i = 0; i < myCookie.length; i++) {
     let theCookie = myCookie[i];
     while (theCookie.charAt(0) == ' ') {
-    theCookie = theCookie.substring(1);
+     theCookie = theCookie.substring(1);
     }
     if (theCookie.indexOf(name) == 0) {
     return theCookie.substring(name.length, theCookie.length);

@@ -1,8 +1,10 @@
+//#region Initialisation
 $(document).ready(loadData);
 let filesToLoad;
 let jsonData;
 let entities = [];
 let lastInput = "";
+let isPaused = false;
 //Code to be executed when page is loaded
 function loadData(){
     const event = new Event("build");
@@ -24,9 +26,13 @@ function main(){
     document.getElementById("right_button").onclick = rightButtonClicked;
     document.getElementById("up_button").onclick = upButtonClicked;
     document.getElementById("down_button").onclick = downButtonClicked;
+    document.getElementById("pause_button").onclick = pauseButtonClicked;
+    document.getElementById("menu").style.display = "none";
     start();   
     updateLoop();
 }
+//#endregion
+//#region Loop
 //Code to be executed every Xms
 function updateLoop(){
     handleInput();
@@ -35,9 +41,34 @@ function updateLoop(){
     entityUpdate();
     handleEntityDestroy()
 
-    setTimeout(updateLoop, 100);
+    if(!isPaused) setTimeout(updateLoop, 100);
 }
-//Input Handling
+//Entities updated after update function
+function entityUpdate(){
+    for(let e in entities){
+        entities[e].update();
+        entities[e].animate();
+    }
+}
+//Entity destruction occurs last
+function handleEntityDestroy(){
+    for(let i = entities.length - 1; i >= 0; i--){
+        entities[i].handleDestroy()
+    }
+}
+//Halts the update loop
+function pause(){
+    isPaused = true;
+    toggleMenu();
+}
+//Restarts the update loop
+function unpause(){
+    isPaused = false;
+    toggleMenu();
+    updateLoop();
+}
+//#endregion
+//#region Input Handling
 function handleInput(){
     switch(lastInput){
         case "":
@@ -82,36 +113,42 @@ function handleInput(){
     lastInput = "";
 }
 function aButtonClicked(){
+    if(isPaused) {
+        handleContinueButton();
+        return;
+    }
     lastInput = "A";
 }
 function bButtonClicked(){
+    if(isPaused) {
+        handleNewGameButton();
+        return;
+    }
     lastInput = "B";
 }
 function leftButtonClicked(){
+    if(isPaused) return;
     lastInput = "Left";
 }
 function rightButtonClicked(){
+    if(isPaused) return;
     lastInput = "Right";
 }
 function upButtonClicked(){ 
+    if(isPaused) return;
     lastInput = "Up";
 }
 function downButtonClicked(){   
+    if(isPaused) return;
     lastInput = "Down";
 }
-//Entities updated after update function
-function entityUpdate(){
-    for(let e in entities){
-        entities[e].update();
-        entities[e].animate();
-    }
+function pauseButtonClicked(){
+    if(isPaused) unpause();
+    else pause();
+
 }
-//Entity destruction occurs last
-function handleEntityDestroy(){
-    for(let i = entities.length - 1; i >= 0; i--){
-        entities[i].handleDestroy()
-    }
-}
+//#endregion
+//#region Entity Class
 class Entity{
     positionX;
     positionY;
@@ -149,21 +186,6 @@ class Entity{
         this.positionY = y;
         this.place();
     }
-    /*
-    place(){
-        this.positionX = this.positionX % (400 - this.height);
-        this.positionY = this.positionY % (400 - this.height);
-        if(this.positionX < 0){
-            this.positionX = (400 - this.height) + this.positionX
-        }
-        if(this.positionY < 0){
-            this.positionY = (400 - this.height) + this.positionY
-        }
-        let entity = this.getElement();
-        entity.style.left = `${this.positionX}px`;
-        entity.style.top = `${this.positionY}px`;
-    }
-    */
     place(){
         if(this.positionX < 0){
             this.positionX = 0;
@@ -222,3 +244,27 @@ class Entity{
     handleUpInput(){}
     handleDownInput(){}
 };
+//#endregion
+//#region Menu
+function toggleMenu(){
+    let menu = document.getElementById("menu")
+    if(isPaused){
+        menu.style.display = "block";
+    }
+    else{
+        menu.style.display = "none";
+    }
+}
+function handleContinueButton(){
+    console.log("Continue");
+    unpause();
+}
+function handleNewGameButton(){
+    console.log("New Game");
+    for(let e in entities){
+        entities[e].destroy();
+    }
+    start();
+    unpause();
+}
+//#endregion

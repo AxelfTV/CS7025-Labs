@@ -13,7 +13,15 @@ body{
     left: 10px;
     top:10px;
     background-color: antiquewhite;
-    position: relative;
+    position: absolute;
+}
+#menu{
+    height: 400px;
+    width: 400px;
+    left: 10px;
+    top:10px;
+    background-color: antiquewhite;
+    position: absolute;
 }
 .entity{
     position: absolute;
@@ -49,5 +57,22 @@ body{
 #down_button{
     left:95px;
     top:503px;
+    position: absolute;
+}
+#pause_button{
+    left:30px;
+    top:550px;
+    position: absolute;
+}
+#continue_button{
+    left: 50%;
+    top:50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+#new_game_button{
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%);
     position: absolute;
 }
