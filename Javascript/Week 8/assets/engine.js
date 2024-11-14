@@ -246,6 +246,7 @@ class Entity{
 };
 //#endregion
 //#region Menu
+//Displays menu element and pauses game
 function toggleMenu(){
     let menu = document.getElementById("menu")
     if(isPaused){
@@ -255,16 +256,32 @@ function toggleMenu(){
         menu.style.display = "none";
     }
 }
+//Handled by A button
 function handleContinueButton(){
     console.log("Continue");
     unpause();
 }
+//Handled by B button - Deletes all entities and restarts
 function handleNewGameButton(){
+    resetGame();
+    unpause();
+}
+function resetGame(){
     console.log("New Game");
     for(let e in entities){
         entities[e].destroy();
     }
     start();
-    unpause();
 }
+//#endregion
+//#region Mechanics boiler plate code to copy and paste in separate file
+/*
+function start(){
+}
+function update(){
+}
+//Load in JSON file
+function addFileToLoad(){
+}
+*/
 //#endregion

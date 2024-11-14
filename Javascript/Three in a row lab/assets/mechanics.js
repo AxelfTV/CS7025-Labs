@@ -7,6 +7,7 @@ function start(){
                 [createGridElement(6),createGridElement(7),createGridElement(8)]];
     let s = new selector(100,"assets/sprites/selector.png","selector",150,150)
     entities.push(s);
+    playerTurn = 1;
 }
 function update(){
 }
@@ -22,7 +23,6 @@ function resetGame(){
     for(let e in entities){
         entities[e].destroy();
     }
-    playerTurn = 1;
     start();
 }
 //Checks each possible win, could be optimised
