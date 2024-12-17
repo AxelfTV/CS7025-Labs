@@ -1,0 +1,8 @@
+{
+    "snakeHeadUp":[
+        "assets/sprites/snakeHead.png"       
+    ],
+    "snakeBodyUp":[
+        "assets/sprites/snakeBody.png"       
+    ]
+}

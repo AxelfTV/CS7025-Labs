@@ -9,7 +9,7 @@ function start(){
 function update(){
 }
 function addFileToLoad(){
-    fileToLoad = 'assets/data.json'
+    fileToLoad = 'assets/data.json';
 }
 class Test extends Entity{
     moveSpd;
