@@ -274,6 +274,7 @@ function resetGame(){
     for(let e in entities){
         entities[e].destroy();
     }
+    handleEntityDestroy();
     start();
 }
 //#endregion

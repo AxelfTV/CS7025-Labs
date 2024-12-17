@@ -5,4 +5,8 @@
     "snakeBodyUp":[
         "assets/sprites/snakeBody.png"       
     ]
+    ,
+    "pickUp":[
+        "assets/sprites/pickUp.png"       
+    ]
 }
