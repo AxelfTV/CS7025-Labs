@@ -3,6 +3,8 @@ let snakeLength;
 let spawnNewSegment;
 let isPickUp;
 let isGameOver;
+const START_X = 10;
+const START_Y = 10;
 function start(){
     grid = [
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
@@ -30,7 +32,7 @@ function start(){
     snakeLength = 0;
     spawnNewSegment = false;
     isGameOver = false;
-    let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", 10, 10, 10);
+    let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", START_X, START_Y, 10);
     head.setIdle(jsonData.snakeHeadUp);
     entities.push(head);
 
@@ -51,7 +53,7 @@ function addFileToLoad(){
 function spawnNewSnakeSegment(){
     snakeLength += 1;
     let newId = snakeLength.toString();
-    let body = new SnakeBody(20, "assets/sprites/snakeBodyVertical.png", newId, 10, 10, 10);
+    let body = new SnakeBody(20, "assets/sprites/snakeBodyVertical.png", newId, 0, 0, 10);
     body.setIdle(jsonData.snakeBodyUp);
     entities.push(body);
     isPickUp = false;
@@ -59,6 +61,8 @@ function spawnNewSnakeSegment(){
 function spawnPickUp(){
     let randX = Math.floor(Math.random() * 20);
     let randY = Math.floor(Math.random() * 20);
+    if(randX == 0 && randY == 0) randX += 1;
+    if(randX == START_X && randY == START_Y) randX += 1;
     if(grid[randX][randY] != null) return;
     let p = new PickUp(randX, randY);
     entities.push(p);
@@ -201,9 +205,7 @@ class SnakeBody extends SnakePiece{
         else if(nextDifX == 1 && prevDifY == -1) this.setIdle(jsonData.snakeBodyCornerDownRight);
         else if(nextDifX == -1 && prevDifY == 1) this.setIdle(jsonData.snakeBodyCornerUpLeft);
         else if(nextDifX == -1 && prevDifY == -1) this.setIdle(jsonData.snakeBodyCornerDownLeft);
-    }
-    setBodySprite(){
-
+        else this.setIdle(jsonData.blank);
     }
 }
 class PickUp extends Entity{

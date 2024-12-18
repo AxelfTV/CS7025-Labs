@@ -35,6 +35,10 @@
         "assets/sprites/snakeBodyCorner4.png"       
     ]
     ,
+    "blank":[
+        "assets/sprites/blank.png"       
+    ]
+    ,
     "pickUp":[
         "assets/sprites/pickUp.png"       
     ]
