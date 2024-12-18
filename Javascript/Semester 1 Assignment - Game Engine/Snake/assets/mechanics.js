@@ -30,7 +30,7 @@ function start(){
     snakeLength = 0;
     spawnNewSegment = false;
     isGameOver = false;
-    let head = new SnakeHead(20, "assets/sprites/snakeHead.png", "0", 10, 10, 10);
+    let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", 10, 10, 10);
     head.setIdle(jsonData.snakeHeadUp);
     entities.push(head);
 
@@ -51,7 +51,7 @@ function addFileToLoad(){
 function spawnNewSnakeSegment(){
     snakeLength += 1;
     let newId = snakeLength.toString();
-    let body = new SnakeBody(20, "assets/sprites/snakeBody.png", newId, 10, 10, 10);
+    let body = new SnakeBody(20, "assets/sprites/snakeBodyVertical.png", newId, 10, 10, 10);
     body.setIdle(jsonData.snakeBodyUp);
     entities.push(body);
     isPickUp = false;
@@ -128,16 +128,20 @@ class SnakeHead extends SnakePiece{
     update(){
         switch(this.moveDirection){
             case "up":
-                this.placeInGrid(this.gridX, this.gridY - 1)
+                this.placeInGrid(this.gridX, this.gridY - 1);
+                this.setIdle(jsonData.snakeHeadUp);
                 break;
             case "down":
-                this.placeInGrid(this.gridX, this.gridY + 1)
+                this.placeInGrid(this.gridX, this.gridY + 1);
+                this.setIdle(jsonData.snakeHeadDown);
                 break;
             case "left":
-                this.placeInGrid(this.gridX - 1, this.gridY)
+                this.placeInGrid(this.gridX - 1, this.gridY);
+                this.setIdle(jsonData.snakeHeadLeft);
                 break;
             case "right":
-                this.placeInGrid(this.gridX + 1, this.gridY)
+                this.placeInGrid(this.gridX + 1, this.gridY);
+                this.setIdle(jsonData.snakeHeadRight);
                 break;
         }
     }
@@ -175,11 +179,31 @@ class SnakeBody extends SnakePiece{
         this.findPosition();
     }
     findPosition(){
+        let nextPosX;
+        let nextPosY;
         for(let e in entities){
             if(entities[e].segmentNo == this.segmentNo - 1){
                 this.placeInGrid(entities[e].prevGridX, entities[e].prevGridY);
+                nextPosX = entities[e].gridX; nextPosY = entities[e].gridY;
             }
         }
+        let prevDifX = this.gridX - this.prevGridX;
+        let prevDifY = this.gridY - this.prevGridY;
+        let nextDifX = nextPosX - this.gridX;
+        let nextDifY = nextPosY - this.gridY;
+        if(nextDifX == 0 && prevDifX == 0) this.setIdle(jsonData.snakeBodyVertical);
+        else if(nextDifY == 0 && prevDifY == 0) this.setIdle(jsonData.snakeBodyHorizontal);
+        else if(nextDifY == 1 && prevDifX == 1) this.setIdle(jsonData.snakeBodyCornerDownLeft);
+        else if(nextDifY == 1 && prevDifX == -1) this.setIdle(jsonData.snakeBodyCornerDownRight);
+        else if(nextDifY == -1 && prevDifX == 1) this.setIdle(jsonData.snakeBodyCornerUpLeft);
+        else if(nextDifY == -1 && prevDifX == -1) this.setIdle(jsonData.snakeBodyCornerUpRight);
+        else if(nextDifX == 1 && prevDifY == 1) this.setIdle(jsonData.snakeBodyCornerUpRight);
+        else if(nextDifX == 1 && prevDifY == -1) this.setIdle(jsonData.snakeBodyCornerDownRight);
+        else if(nextDifX == -1 && prevDifY == 1) this.setIdle(jsonData.snakeBodyCornerUpLeft);
+        else if(nextDifX == -1 && prevDifY == -1) this.setIdle(jsonData.snakeBodyCornerDownLeft);
+    }
+    setBodySprite(){
+
     }
 }
 class PickUp extends Entity{
@@ -188,5 +212,4 @@ class PickUp extends Entity{
         super(20, "assets/sprites/pickUp.png", "p", x*20, y*20);
     }
     update(){};
-    
 }
