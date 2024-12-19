@@ -2,9 +2,8 @@ let grid;
 let snakeLength;
 let spawnNewSegment;
 let isPickUp;
-let isGameOver;
-const START_X = 10;
-const START_Y = 10;
+const START_X = 3;
+const START_Y = 18;
 function start(){
     grid = [
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
@@ -28,10 +27,9 @@ function start(){
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     ];
-    frameDelay = 200;
+    frameDelay = 300;
     snakeLength = 0;
     spawnNewSegment = false;
-    isGameOver = false;
     let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", START_X, START_Y, 10);
     head.setIdle(jsonData.snakeHeadUp);
     entities.push(head);
@@ -72,15 +70,6 @@ function spawnPickUp(){
 function gameOver(){
     console.log("game over");
     resetGame();
-}
-function countGrid(){
-    let count = 0;
-    for(let i = 0; i < 20; i++){
-        for(let j = 0; j < 20; j++){
-            if(grid[i][j] != null) count++;
-        }
-    }
-    console.log(count);
 }
 class SnakePiece extends Entity{
     segmentNo;

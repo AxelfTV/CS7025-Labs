@@ -33,6 +33,7 @@ function main(){
     document.getElementById("menu").style.display = "none";
     start();   
     updateLoop();
+    pause();
 }
 //#endregion
 //#region Loop
@@ -240,6 +241,8 @@ class Entity{
             this.getElement().remove();
         } 
     }
+    //To be implemented in child classes
+    update(){}
     handleAInput(){}
     handleBInput(){}
     handleLeftInput(){}
