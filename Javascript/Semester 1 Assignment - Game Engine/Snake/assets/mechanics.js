@@ -33,6 +33,7 @@ function start(){
     snakeLength = 0;
     spawnNewSegment = false;
 
+    highscore = window.localStorage.getItem('highscore');
     if(highscore == null) window.localStorage.setItem('highscore', "0"+snakeLength.toString());
     updateHighscore();
 
