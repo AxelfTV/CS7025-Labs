@@ -3,6 +3,7 @@ let snakeLength;
 let spawnNewSegment;
 let isPickUp;
 let pickUpSound;
+let highscore;
 const START_X = 3;
 const START_Y = 18;
 function start(){
@@ -31,6 +32,10 @@ function start(){
     frameDelay = 300;
     snakeLength = 0;
     spawnNewSegment = false;
+
+    if(highscore == null) window.localStorage.setItem('highscore', "0"+snakeLength.toString());
+    updateHighscore();
+
     let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", START_X, START_Y, 10);
     head.setIdle(jsonData.snakeHeadUp);
     entities.push(head);
@@ -58,6 +63,20 @@ function spawnNewSnakeSegment(){
     entities.push(body);
     isPickUp = false;
     pickUpSound.play();
+    updateHighscore();
+}
+function updateHighscore(){
+    highscore = window.localStorage.getItem('highscore');
+    let snakeLengthText = snakeLength.toString();
+    if(snakeLength < 10) snakeLengthText = "0"+snakeLengthText;
+    if(snakeLength > highscore){
+        window.localStorage.setItem('highscore', snakeLengthText);
+        highscore = window.localStorage.getItem('highscore');
+    }
+    //temporary until engine text entities added
+    let text = document.getElementById("scoreText");
+    text.innerText = "Current Score: "+snakeLengthText + " Highscore: " + highscore;
+    console.log("Current Score:",snakeLengthText, "Highscore:", highscore);
 }
 function spawnPickUp(){
     let randX = Math.floor(Math.random() * 20);

@@ -83,3 +83,11 @@ body{
     left:0;
     position:absolute;
 }
+#scoreText{
+    left: 50%;
+    top: 400px;
+    font-size: 12px;
+    font-family: monospace;
+    transform: translateX(-50%);
+    position: absolute;
+}
