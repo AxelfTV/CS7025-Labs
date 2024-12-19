@@ -2,6 +2,7 @@ let grid;
 let snakeLength;
 let spawnNewSegment;
 let isPickUp;
+let pickUpSound;
 const START_X = 3;
 const START_Y = 18;
 function start(){
@@ -33,7 +34,8 @@ function start(){
     let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", START_X, START_Y, 10);
     head.setIdle(jsonData.snakeHeadUp);
     entities.push(head);
-
+    pickUpSound = new Audio("assets/sounds/pickUp.wav");
+    pickUpSound.volume = 0.4;
     spawnPickUp();
 }
 function update(){
@@ -55,6 +57,7 @@ function spawnNewSnakeSegment(){
     body.setIdle(jsonData.snakeBodyUp);
     entities.push(body);
     isPickUp = false;
+    pickUpSound.play();
 }
 function spawnPickUp(){
     let randX = Math.floor(Math.random() * 20);
