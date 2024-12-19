@@ -1,3 +1,4 @@
+//#region Variables
 let grid;
 let snakeLength;
 let spawnNewSegment;
@@ -6,7 +7,11 @@ let pickUpSound;
 let highscore;
 const START_X = 3;
 const START_Y = 18;
+const REFRESH_RATE = 300;
+//#endregion
+//#region Engine Methods
 function start(){
+    //initialize variables
     grid = [
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
@@ -29,23 +34,23 @@ function start(){
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
         [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     ];
-    frameDelay = 300;
+    frameDelay = REFRESH_RATE;
     snakeLength = 0;
     spawnNewSegment = false;
-
+    pickUpSound = new Audio("assets/sounds/pickUp.wav");
+    pickUpSound.volume = 0.4;
+    //Fetch High Score
     highscore = window.localStorage.getItem('highscore');
     if(highscore == null) window.localStorage.setItem('highscore', "0"+snakeLength.toString());
     updateHighscore();
-
+    //Spawn Game Entities
     let head = new SnakeHead(20, "assets/sprites/snakeHeadUp.png", "0", START_X, START_Y, 10);
     head.setIdle(jsonData.snakeHeadUp);
-    entities.push(head);
-    pickUpSound = new Audio("assets/sounds/pickUp.wav");
-    pickUpSound.volume = 0.4;
+    entities.push(head);  
     spawnPickUp();
 }
 function update(){
-    
+    //Handle Spawning Next Segment 
     if(spawnNewSegment){
         spawnNewSnakeSegment();
         spawnNewSegment = false;
@@ -56,6 +61,9 @@ function update(){
 function addFileToLoad(){
     fileToLoad = 'assets/data.json';
 }
+//#endregion
+//#region Methods
+//Called each time pick up is collected
 function spawnNewSnakeSegment(){
     snakeLength += 1;
     let newId = snakeLength.toString();
@@ -79,6 +87,7 @@ function updateHighscore(){
     text.innerText = "Current Score: "+snakeLengthText + " Highscore: " + highscore;
     console.log("Current Score:",snakeLengthText, "Highscore:", highscore);
 }
+//Currently chooses randomly, Can be improved
 function spawnPickUp(){
     let randX = Math.floor(Math.random() * 20);
     let randY = Math.floor(Math.random() * 20);
@@ -95,6 +104,9 @@ function gameOver(){
     console.log("game over");
     resetGame();
 }
+//#endregion
+//#region Entity Child Classes
+//Parent class for all elements that exist in the grid
 class SnakePiece extends Entity{
     segmentNo;
     gridX;
@@ -107,6 +119,7 @@ class SnakePiece extends Entity{
         this.gridX = x;
         this.gridY = y;
     }
+    //Handles interactions with grid variable
     placeInGrid(x,y){
         
         let toX = x;
@@ -137,12 +150,14 @@ class SnakePiece extends Entity{
         }    
     }
 }
+//Snake head class including player controls
 class SnakeHead extends SnakePiece{
     moveDirection = "up";
     constructor(height, imageUrl, id, x, y){
         super(height, imageUrl, id, x, y);
     }
     update(){
+        //Movement handling
         switch(this.moveDirection){
             case "up":
                 this.placeInGrid(this.gridX, this.gridY - 1);
@@ -162,9 +177,7 @@ class SnakeHead extends SnakePiece{
                 break;
         }
     }
-    handleAInput(){
-        
-    }
+    //Input handling
     handleLeftInput(){
         if(this.moveDirection == "up" || this.moveDirection == "down"){
             this.moveDirection = "left";
@@ -186,10 +199,9 @@ class SnakeHead extends SnakePiece{
         }  
     }
 }
-class SnakeBody extends SnakePiece{
-    
-    constructor(height, imageUrl, id, x, y){
-        
+//Snake body pieces class
+class SnakeBody extends SnakePiece{  
+    constructor(height, imageUrl, id, x, y){ 
         super(height, imageUrl, id, x, y);
     }
     update(){
@@ -204,6 +216,7 @@ class SnakeBody extends SnakePiece{
                 nextPosX = entities[e].gridX; nextPosY = entities[e].gridY;
             }
         }
+        //Check for which body piece sprite to use, could be improved
         let prevDifX = this.gridX - this.prevGridX;
         let prevDifY = this.gridY - this.prevGridY;
         let nextDifX = nextPosX - this.gridX;
@@ -221,6 +234,7 @@ class SnakeBody extends SnakePiece{
         else this.setIdle(jsonData.blank);
     }
 }
+//class for apple pick ups
 class PickUp extends Entity{
     segmentNo = "p";
     constructor(x, y){
@@ -228,3 +242,4 @@ class PickUp extends Entity{
     }
     update(){};
 }
+//#endregion
