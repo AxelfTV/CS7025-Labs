@@ -63,6 +63,7 @@ function spawnPickUp(){
     if(randX == START_X && randY == START_Y) randX += 1;
     if(grid[randX][randY] != null) return;
     let p = new PickUp(randX, randY);
+    p.setIdle(jsonData.pickUp);
     entities.push(p);
     grid[randX][randY] = p;
     isPickUp = true;
@@ -200,7 +201,7 @@ class SnakeBody extends SnakePiece{
 class PickUp extends Entity{
     segmentNo = "p";
     constructor(x, y){
-        super(20, "assets/sprites/pickUp.png", "p", x*20, y*20);
+        super(20, "assets/sprites/pickUpAnimations/apple1.png", "p", x*20, y*20);
     }
     update(){};
 }

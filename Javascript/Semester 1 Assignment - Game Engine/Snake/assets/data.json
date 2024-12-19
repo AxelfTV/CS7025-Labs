@@ -40,6 +40,11 @@
     ]
     ,
     "pickUp":[
-        "assets/sprites/pickUp.png"       
+        "assets/sprites/pickUpAnimations/apple1.png",
+        "assets/sprites/pickUpAnimations/apple2.png",
+        "assets/sprites/pickUpAnimations/apple3.png",
+        "assets/sprites/pickUpAnimations/apple4.png",
+        "assets/sprites/pickUpAnimations/apple5.png",
+        "assets/sprites/pickUpAnimations/apple6.png"
     ]
 }
