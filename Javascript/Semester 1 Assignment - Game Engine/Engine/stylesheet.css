@@ -6,6 +6,9 @@ body{
     height: 600px;
     background-color: gray;
     position: relative;
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
 }
 #screen{
     height: 400px;
@@ -90,4 +93,5 @@ body{
     font-family: monospace;
     transform: translateX(-50%);
     position: absolute;
+    white-space:nowrap;
 }
